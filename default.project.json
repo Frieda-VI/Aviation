@@ -1,0 +1,12 @@
+{
+  "name": "Aviation",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Aviation": {
+        "$path": "Aviation"
+      }
+    }
+  }
+}
