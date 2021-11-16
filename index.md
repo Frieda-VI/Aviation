@@ -163,14 +163,14 @@ You can also manually bind client function to the RemoteObject using this method
 
 ---
 
-> Invoking Server And Client
+## Invoking Server And Client
 
 This is probably the most important part and the simplest. To fire the Client we simple do `RemoteObject:FireClient(Arguments)` and to fire the Server, `RemoteObject:FireServer(Arguments)`. Note that you do not have to pass the Player as argument in them!
 
 ---
 
-> Contact
+## @ Contact Me
 
-If ever you stop any bugs or problems please DM me on Discord `ImportLua#9522` or [Twitter](https://twitter.com/LuaImport), thank you for using my Framework!
+If ever you spot any bugs or problems please DM me on Discord `ImportLua#9522` or [Twitter](https://twitter.com/LuaImport), thank you for using my Framework!
 
 [Github Repository](https://github.com/Frieda-VI/Aviation)
