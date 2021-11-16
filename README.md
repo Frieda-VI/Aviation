@@ -13,3 +13,4 @@ Installing Aviation for your ROJO project is quite simple.
 
 [Pointing to ReplicatedStorage](https://github.com/Frieda-VI/Aviation/blob/main/default.project.json)
 
+[Quick and simple Documentation](https://frieda-vi.github.io/Aviation/)
