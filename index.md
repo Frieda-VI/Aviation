@@ -161,9 +161,13 @@ You can also manually bind client function to the RemoteObject using this method
 
 `.Structure` can be called on all the Client and ServerScripts. 
 
+---
+
 > Invoking Server And Client
 
 This is probably the most important part and the simplest. To fire the Client we simple do `RemoteObject:FireClient(Arguments)` and to fire the Server, `RemoteObject:FireServer(Arguments)`. Note that you do not have to pass the Player as argument in them!
+
+---
 
 > Contact
 
