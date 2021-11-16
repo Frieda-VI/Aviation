@@ -42,7 +42,7 @@ Aviation:Await()
 
 ---
 ## Server Usage
-This is a basic Boilerplate for the AviationRuntime -> Server
+This is a basic Boilerplate for the AviationRuntime -> Runtime Server
 ```lua
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -53,6 +53,7 @@ Aviation:Start() --// Starts the Aviation Framework
 local RemoteTable = {
     "Example" = function(Player, ...)
         --// This function will be called When the Client fires the example remote \\--
+        print(Player.Name .. " Fired Example 1")
     end;
     "Example2"
     --[[
@@ -68,13 +69,6 @@ Players.PlayerAdded:Connect(function(Player)
     PlayerRemote:FromList(RemoteTable) -> Creates remote object and attaches a function to them if they had one
     
     local Example2 = PlayerRemote:GetRemote("Example2") -> Returns the RemoteObject requested
-    Example2:BindToServer(function(Player, Message)
-        print("Example2" .. tostring("Message"))
-    end)
-    --[[
-        You can also attach a function separately to the RemoteObject,
-        does the same thing as if you had mentioned the function in RemoteTable.
-    ]]--
     
     PlayerRemote:Process() -> All player remote should be processed as soon the functions are attached
     --[[
@@ -83,3 +77,96 @@ Players.PlayerAdded:Connect(function(Player)
     ]]--
 end)
 ```
+
+> Creation of RemoteObject
+```lua
+    --// Remote Objects can also be create like this instead of the table manner \\--
+    local Example3 = PlayerRemote:CreateRemote("Example3")
+```
+
+> Binding of Function
+
+```lua
+    --// Beside the table way, function can be binded to RemoteObjects in a way demonstrated below \\--
+    
+    Example2:BindToServer(function(Player, Message)
+        print("Example2" .. tostring("Message"))
+    end)
+    
+    --[[
+        You can also attach a function separately to the RemoteObject,
+        does the same thing as if you had mentioned the function in RemoteTable.
+    ]]--
+```
+> Other ServerScript
+
+Often times, you won't be using the RunTime code to host all your code, that's exactly why we need a way to get the PlayerRemote from other scripts
+
+```lua
+    --// This way works both both on the server and the client \\--
+    Aviation.Structure(Player)
+    --[[ 
+    Note: The Player argument is passed only when it's on the Server,
+    if you're running this code on the Client, you don't need to pass the Player.
+    ]]--
+```
+
+Futher notes, you can destroy RemoteObject by calling their Destroy function. `RemoteObject:Destroy`
+
+If you created a RemoteObject or binded a function to in on the Server, it's essential to Process the Player's Remote again. `PlayerRemote:Process`
+
+You can check wether a RemoteObject exists or not. `PlayerRemote:HasRemote()` -Works on the Client & Server
+
+---
+
+## Client Usage
+
+On the Client, you're required to have a main Client `Runtime`.
+To get the Player's Structure simple do `local PlayerRemote = Aviation.Structure()`
+
+After obtaining the Player's Structure make sure to Securise it. `PlayerRemote:Securise()`  Securise ensures that the RemoteObjects are well protected on the Client and changes by the Client that make them more vulnerable to exploits is prevented.
+
+> Client Boilerplate
+
+```lua
+    local Aviation = require(game:GetService("ReplicatedStorage"):WaitForChild("Aviation"))
+    Aviation:Await()
+    
+    wait(.2) --// Waits for the Player's structure "PlayerRemote" to be processed 
+    local PlayerRemote = Aviation.Structure()
+    PlayerRemote:Securise() --// Should only be done once by the Client
+    
+    local FunctionTable = {
+        Example3 = function()
+        --// This Function will be fired when the Server invokes the Client
+            print("Hello World From The Server")
+        end;
+    }
+    PlayerRemote:FromStructure(FunctionTable) --// Same as :FromList on the Server
+    
+    local Example = PlayerRemote:GetRemote("Example") --// Gets The Requested Remote 
+    Example:FireServer()
+```
+
+You can also manually bind client function to the RemoteObject using this method instead of the FunctionTable method.
+
+```lua
+    local Example3 = PlayerRemote:GetRemote("Example3")
+    
+    Example3:BindToClient(function()
+        --// This Function will be fired when the Server invokes the Client
+            print("Hello World From The Server")
+    end)
+```
+
+`.Structure` can be called on all the Client and ServerScripts. 
+
+> Invoking Server And Client
+
+This is probably the most important part and the simplest. To fire the Client we simple do `RemoteObject:FireClient(Arguments)` and to fire the Server, `RemoteObject:FireServer(Arguments)`. Note that you do not have to pass the Player as argument in them!
+
+> Contact
+
+If ever you stop any bugs or problems please DM me on Discord `ImportLua#9522` or [Twitter](https://twitter.com/LuaImport), thank you for using my Framework!
+
+[Github Repository](https://github.com/Frieda-VI/Aviation)
