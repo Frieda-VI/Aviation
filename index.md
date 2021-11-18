@@ -167,6 +167,22 @@ You can also manually bind client function to the RemoteObject using this method
 
 This is probably the most important part and the simplest. To fire the Client we simple do `RemoteObject:FireClient(Arguments)` and to fire the Server, `RemoteObject:FireServer(Arguments)`. Note that you do not have to pass the Player as argument in them!
 
+> **FireAll**
+
+`FireAll` is a method can be performed on the Server which takes a Remote name as first argument and other arguments and fires all the Clients remote which returns a dictionary of all the values returned by each corresponding Clients. It's generally recommended to run this function in a PCall or avoid using it.
+
+Usage
+
+```lua
+local Aviation = require(ReplicatedStorage:WaitForChild("Aviation")
+Aviation:Await()
+
+local ReturnedValues = Aviation:FireAll("Example3", Arguments...)
+
+--// This method is called directly on Aviation \\--
+```
+**Return DictionaryFormat: {PlayerName = { Retured Values} }**
+
 ---
 
 ## @ Contact Me
