@@ -169,7 +169,9 @@ This is probably the most important part and the simplest. To fire the Client we
 
 > **FireAll**
 
-`FireAll` is a method can be performed on the Server which takes a Remote name as first argument and other arguments and fires all the Clients remote which returns a dictionary of all the values returned by each corresponding Clients. It's generally recommended to run this function in a PCall or avoid using it.
+`FireAll` is a method that can be performed on the Server, it takes a Remote name as first argument and "other arguments" then it fires all the Clients remote. This function returns a dictionary of all the values returned by each corresponding Clients. 
+
+It's generally recommended to avoid running this function regularly and to run it in a PCall.
 
 Usage
 
