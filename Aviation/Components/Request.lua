@@ -55,12 +55,18 @@ function TransferFunctions:GetRemote(Name)
 end
 
 --// Exploit Protection \\--
-function TransferFunctions:Securise()
+function TransferFunctions:Securise(ExploitingMessage)
     --// This Action Can Only Be Done Via The Client \\--
     --// Should ONLY Be Done Once Per Object By The Client Runtime \\--
+
+	--// Also Helps To Prevent Memory Leakage Via Vider Object \\--
+	--// Helps To Keep The RemoteInstances Exploit Proof \\--
+
     Client()
     local Players = game:GetService("Players")
     local Player = Players.LocalPlayer
+
+	local KickMessage = ExploitingMessage or "You are suspected of cheating!"
 
     for _Index, Remote in pairs(self) do
 		local INSTANCE = Remote.Instance
@@ -69,9 +75,33 @@ function TransferFunctions:Securise()
 			--// Skips This Iteration If The Remote Doesn't Have An Instance \\-
 			continue
 		end
-        local ViderObject = Vider:Debute(INSTANCE, INSTANCE:GetPropertyChangedSignal("Name"):Connect(function()
-            Player:Kick("You Were Suspected Of Cheating!")
-        end))
+
+		--// RBLXConnections \\--
+		local NameChanges = INSTANCE:GetPropertyChangedSignal("Name"):Connect(function()
+			--// This Will Be Fired If The Name Of The RemoteInstance Changes \\--
+
+            Player:Kick(KickMessage)
+        end)
+		local DescendantAdded = INSTANCE.DescendantAdded:Connect(function()
+			--// This Will Be Fired If An Object Is Parented To The RemoteInstance \\--
+
+			Player:Kick(KickMessage)
+		end)
+		local ParentChanges = INSTANCE.AncestryChanged:Connect(function(_, Parent)
+			if typeof(Parent) == "Instance" then
+				--// This Will Fire If The Parent Of The Remote Instance Is Changed [Not When Object Is Destroyed] \\--
+
+				Player:Kick(KickMessage)
+			end
+		end)
+		local AttributeChanges = INSTANCE.AttributeChanged:Connect(function(_AttributeName)
+			--// This Will Fire When An Attribute Is Given To The RemoteInstance \\--
+
+			Player:Kick(KickMessage)
+		end)
+
+		--// Binding To Vider Object \\--
+        local ViderObject = Vider:Debute(INSTANCE, NameChanges, DescendantAdded, ParentChanges, AttributeChanges)
         ViderObject:AjouteMain(Player)
     end
 end
