@@ -268,7 +268,7 @@ function Aviation:FireAll(Name, ...)
         --// Check \\--
         if type(PlayerStructure) == "table" and PlayerStructure:HasRemote(Name) then
             --// Firing The Remote And Storing The Value Returned \\--
-            Returns[tostring(Player.Name)] = PlayerStructure:GetRemote(Name):FireClient(...)
+            Returns[tostring(Player.Name)] = {PlayerStructure:GetRemote(Name):FireClient(...)}
         end
     end
 
