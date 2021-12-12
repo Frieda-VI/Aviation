@@ -51,7 +51,7 @@ local Aviation = require(ReplicatedStorage:WaitForChild("Aviation"))
 Aviation:Start() --// Starts the Aviation Framework
 
 local RemoteTable = {
-    "Example" = function(Player, ...)
+    Example = function(Player, ...)
         --// This function will be called When the Client fires the example remote \\--
         print(Player.Name .. " Fired Example 1")
     end;
