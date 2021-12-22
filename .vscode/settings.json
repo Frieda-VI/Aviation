@@ -1,6 +1,19 @@
+/*{
+    "editor.fontFamily": "Monaco",
+    "editor.fontSize": 16,
+    "editor.wordWrap": "on",
+    "editor.renderWhitespace": "all"
+}
+*/
+
 {
-    //"editor.fontFamily": "Monaco",
-    //"editor.fontSize": 16,
-    //"editor.wordWrap": "on"
-    //"editor.renderWhitespace": "all"
+    "editor.fontSize": 16,
+    "editor.fontFamily": "Roboto Mono",
+    "editor.renderWhitespace": "trailing",
+    "editor.wordWrap": "on",
+    "[lua]": {
+        "editor.defaultFormatter": "JohnnyMorganz.stylua"
+    },
+    "editor.codeLensFontFamily": "Roboto Mono",
+    "editor.suggestSelection": "first",
 }
