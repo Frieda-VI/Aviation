@@ -1,0 +1,11 @@
+
+Name: Aviation
+Version: 4.0.0
+
+Author: Frieda_VI
+DiscordID: 870241483431751751
+
+CodeEditor: Visual Studio Code
+
+
+GitHub Repository: https://github.com/Frieda-VI/Aviation

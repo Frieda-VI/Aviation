@@ -1,52 +1,74 @@
 
+--//                 Aviation Version 4                 \\--
+--// This Is A Custom Remote Framework By Frieda_VI#9522 \\--
 
---// Aviation \\--
---// This Is A Custom Framework By ImportLua#9522 \\--
 
---// Top Services \\--
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+--// Top Level Service By Roblox \\--
 local RunService = game:GetService("RunService")
 
 
---// Aviation Self \\--
-local AviationFramework = ReplicatedStorage:WaitForChild("Aviation")
+local Aviation = {}
+Aviation.__index= Aviation
 
---// Components \\--
-local Components = AviationFramework:WaitForChild("Components")
 
+--// Aviation Self, Helps To Allocate Important Utils And Other Files \\--
+local AviationFramework = script
+
+
+local Utils = AviationFramework:WaitForChild("Utils")
+local RemoteFunctions = Utils:WaitForChild("RemoteFunctions")
+
+--// Requires Important Utils That Are Very Important For The Proper Function Of Aviaition \\--
 --// Vider - Custom Janitor | RemoteFunctions - Inherrited By All Remote Objects \\--
---// RequestObject - Based Formatting \\--
-local RemoteFunctions = require(Components:WaitForChild("Functions"))
-local RequestObject = require(Components:WaitForChild("Request"))
-local Vider = require(Components:WaitForChild("Vider"))
+local Request = require(Utils:WaitForChild("Request"))
+local Signal = require(Utils:WaitForChild("Signal"))
+local Vider = require(Utils:WaitForChild("Vider"))
 
+
+--// Client Function and Sever Function Contains Core Functions For The Remote Object \\--
+--local ClientFunction = require(RemoteFunctions:WaitForChild("ClientFunction")) [[Used By Request.lua]]
+local ServerFunction = require(RemoteFunctions:WaitForChild("ServerFunction"))
+
+
+--// References Used To Determine If Action Can Be Performed Or Not \\--
 local IsClient = RunService:IsClient()
 local IsServer = RunService:IsServer()
 
+
 local function Location(Server)
     --// Function Which Checks The Run Location \\--
+
+    --// Client Code Should NOT Be Execute By The Server And Vice-Versa \\--
+    --// Server: Boolean -> true [Only Server], false|nil [Only Client]
+
     if Server then
         --// Highest Fedality Is To The Server \\--
         assert(IsServer == true, "This Action Can Only Be Performed Via The Server!")
     else
         --// Secondary Is The Client \\--
-        assert(IsClient == true, "This Action Can Only Be Performed Via The Client")
+        assert(IsClient == true, "This Action Can Only Be Performed Via The Client!")
     end
 end
 
---// Aviation Components \\--
-local Aviation = {}
-Aviation.__index = Aviation
+
+
+
+
 
 local function _Build()
-    --// Builds The Remote Communication Utils \\--
+    Location(true)
+
+    --//        Builds The Remote Communication Unit        \\--
+    --// Contains Very Important RemoteCommunication Objects \\--
+
+
     local CommunicationUnit = Instance.new("Folder")
     CommunicationUnit.Name = "CommunicationUnit"
 
     --// Creation Of Core Communication Objects \\--
 
     local function Construct(Name, Type)
-        --// Inner Construction \\--
+        --//            Inner Construction            \\--
         --// Makes Creating Instance Simple And Faster \\--
 
         local Parent = CommunicationUnit
@@ -58,9 +80,11 @@ local function _Build()
         return INSTANCE
     end
 
+
     Construct("ProcessData", "BindableEvent")
     Construct("RequestData", "RemoteFunction")
     Construct("RequestServer", "BindableFunction")
+
 
     --// Parenting It To The Framework \\--
     CommunicationUnit.Parent = AviationFramework
@@ -68,80 +92,203 @@ end
 
 function Aviation.Start()
     --// Starts The Framework, Can Only Be Done Via The Server \\--
+    --// Builds An Contructs Core Components \\--
     Location(true)
 
+
     if not AviationFramework:FindFirstChild("Started") then
-        --// Start The Framework \\--
+        --//                 Starts The Aviation                        \\--
+        --// Started Is Used To Indicate If Aviation Is Activated Or Not \\--
         local Started = Instance.new("BoolValue")
         Started.Name = "Started"
         Started.Parent = AviationFramework
 
         Started.Value = false
 
-        --// Server Script Service \\--
+
+        --// Specific Building \\--
         _Build()
 
+
+        --// Archiver Building \\--
         local ServerScriptService = game:GetService("ServerScriptService")
-        local Archive = Components:WaitForChild("Archive")
+        local Archive = Utils:WaitForChild("Archive")
+
 
         --// Concludes And Start \\--
         Archive.Parent = ServerScriptService
         Started.Value = true
     else
+        --// Start Method Can Only Be Done Once \\--
         warn("Aviation Framework Has Already Begin Opperating!")
     end
 end
 
-local function ForStart()
-    local Started = AviationFramework:FindFirstChild("Started")
-    assert(Started and Started.Value == true, "Aviation Hasn't Been Started Yet!")
-end
-
-
 function Aviation.Await()
-    --// Waits Util The Framework Is Started \\--
-    --// Helps To Prevent Errors By Waiting For Setting Up \\--
+    --// Waits Until The Framework Is Ready To Be Opperated On \\--
+    --// Helps To Prevent Errors By Waiting For Proper Setting Up \\--
 
+    --// Continious Repeating \\--
     repeat
         task.wait()
     until
+        --// Can Resume \\--
         AviationFramework:FindFirstChild("Started") and AviationFramework.Started.Value == true
 end
 
 
-function Aviation.new(Player)
+
+
+
+
+local function ForStart()
+    --// Function Used To Determined If Aviation Can Be Opperated On \\--
+    --// Core Component Function \\--
+
+    local Started = AviationFramework:FindFirstChild("Started")
+    assert(Started and Started.Value == true, "Aviation Didn't Start Running Yet!")
+end
+
+
+function Aviation.new(Player, RemoteName)
+    --//                   Aviation Constructor                   \\--
+
     --// Function Used To Create An Aviation Object For The Player \\--
     --// Action Can Only Be Performed Via The Server \\--
-
     ForStart()
 
-	Location(true)
-	assert(Player, "Argument[1], Player Is Invalid!")
-    
+
+	Location(true) --// Server Action
+	assert(typeof(Player) == "Instance" and Player:IsA("Player"), "Argument[1], Player Is Invalid!")
+
+    RemoteName = RemoteName or "Remote-Object"
+
+
     local function Folder()
-        --// Build Folder For Player \\--
+        --// Builds A Folder For The Player \\--
         --// Remote Communication Folder \\--
 
         local RemoteConnections = Instance.new("Folder")
 
-        RemoteConnections.Name = "Remote-Connections"
+        RemoteConnections.Name = "Remote-Connection"
         RemoteConnections.Parent = Player
 
         return RemoteConnections
     end
-
     local PlayerFolder = Folder()
+
 
 	return setmetatable({
         Player = Player;
+
         Instance = PlayerFolder;
+
+        ["RemoteName"] = RemoteName;
         Remotes = {};
-        ViderObject = Vider:Debute(Player, PlayerFolder); --// Garbage Collector
+
+        ViderObject = Vider:Debute(Player, PlayerFolder); --// Garbage Collector \\--
     }, Aviation)
 end
 
+--//    Serialisation    \\--
+function Aviation:Process()
+    --// Action Can Only Be Perfomed Via The Server \\--
+    --// Process The Object To The Archiver \\--
 
-function Aviation:NewRemote(Name, RemoteName)
+    --// Can Only Be Done When The Framework Has Started \\--
+    ForStart()
+	Location(true)
+
+
+	--// Saves A New Style Of Structure \\--
+    local CommunicationUnit = AviationFramework:WaitForChild("CommunicationUnit")
+    local ProcessData = CommunicationUnit:WaitForChild("ProcessData")
+
+
+    --// Sends The Data To The Archiver \\--
+	ProcessData:Fire(Request.Format(self))
+end
+
+function Aviation.Structure(Argument, Argument2)
+    --//            Returns The Player Structure            \\--
+    --// Returns An Object Structure Similar To The Original \\--
+
+    ForStart()
+	local CommunicationUnit = AviationFramework:WaitForChild("CommunicationUnit")
+
+    local RequestData = CommunicationUnit:WaitForChild("RequestData")
+    local RequestServer = CommunicationUnit:WaitForChild("RequestServer")
+
+
+    local function Obtain(Value, Player)
+        local SelfStructure
+        local NoYeild = Value
+
+
+        local Limited = false
+        local InitialTime = 0
+        local YeildNumber = 0
+        local function ToRequest()
+            if IsClient then
+                return RequestData:InvokeServer()
+            elseif IsServer and Player then
+                return RequestServer:Invoke(Player)
+            end
+        end
+        local function ToYeild()
+            repeat
+                task.wait(.25)
+                SelfStructure = ToRequest()
+            until
+                --// Until SelfStructure Isn't Blank \\--
+                --// OR \\--
+                --// No Yeild Period \\--
+                (SelfStructure and SelfStructure ~= {}) or (Limited and (tick() - InitialTime) >= YeildNumber)
+        end
+
+
+        if (type(NoYeild) == "number" and NoYeild == 0) or (type(NoYeild) == "boolean" and NoYeild == true) or (IsServer and (type(NoYeild) ~= "number") or (type(NoYeild) ~= "number" and NoYeild == 0) or not NoYeild) then
+            --// Instant Request \\--
+            --// Default Server \\--
+            SelfStructure = ToRequest()
+        elseif typeof(NoYeild) == "number" then
+            --// Yeilds Until Item For A Given Amount Of Time \\--
+            Limited = true
+            InitialTime = tick()
+            YeildNumber = NoYeild
+
+            ToYeild()
+        else
+            --// Default Client \\--
+            ToYeild()
+        end
+
+
+        return SelfStructure
+    end
+
+    if IsClient then
+        --// This Function Yields By Default \\--
+		Location(false)
+        local PlayerStructure = Obtain(Argument)
+
+		return Request.StructureFormat(PlayerStructure)
+	elseif IsServer then
+        --// Doesn't Yield By Default \\--
+		Location(true)
+		assert(Argument, "Argument[1], Player Is Invalid!")
+
+		local PlayerStructure = Obtain(Argument2, Argument)
+		return Request.StructureFormat(PlayerStructure)
+	end
+end
+
+
+
+
+
+
+function Aviation:NewRemote(Name)
     --// Creates A Brand New Remote Communication Object \\--
     --// This Action Can Only Be Perfomed On The Client \\--
 
@@ -153,29 +300,34 @@ function Aviation:NewRemote(Name, RemoteName)
 
     --// Creates A Remote Communication Object ::RemoteFunction:: \\--
 	local RemoteFunction = Instance.new("RemoteFunction")
-	RemoteFunction.Name = RemoteName or "PROTECTED REMOTE CONNECTION"
+	RemoteFunction.Name = self.RemoteName or "Remote-Object"
 
-    self.ViderObject:AjouteAutre(RemoteFunction) --// Garbage Collection
+
+    --self.ViderObject:AjouteAutre(RemoteFunction) --// Garbage Collection
+
 
     --// Creation Of Class Object \\--
     --// IMPORTANT! - Player && Instance
     local RemoteObject = setmetatable(
         {
             Name = Name;
+
             Player = self.Player;
             Instance = RemoteFunction;
+
             ServerFunction = nil;
-        }, RemoteFunctions)
+        }, ServerFunction)
 
     self.Remotes[Name] = RemoteObject
     RemoteFunction.Parent = self.Instance
+
 
 	return RemoteObject
 end
 
 function Aviation:DestroyRemote(Name)
     --// Destroys A Remote Object \\--
-    --// Not Recommended As RemoteObject Should Have A Presized Goal For Being Created \\--
+    --// Not Recommended As RemoteObject Should Have A Presized Goal To Be Created \\--
     --// Searches For Remote Object Based On The Name \\--
 
     --// Action Can Only Be Performed By The Server \\--
@@ -276,6 +428,7 @@ function Aviation:FireAll(Name, ...)
 end
 
 
+
 --// Correct Creation Method \\--
 
 function Aviation:FromList(List)
@@ -300,7 +453,7 @@ function Aviation:FromList(List)
             if type(Value) == "function" then
                 --// Attaches A Function \\--
                 RemoteObject:BindToServer(Value)
-			end	
+			end
 		elseif type(Value) == "string" then
 			--// No Functions To Bind \\--
             --// Just Creates \\--
@@ -309,47 +462,7 @@ function Aviation:FromList(List)
 	end
 end
 
---// Serialisation \\--
-function Aviation:Process()
-    --// Action Can Only Be Perfomed Via The Server \\--
-    --// Process The Object To The Archiver \\--
 
-    --// Can Only Be Done When The Framework Has Started \\--
-    ForStart()
-	Location(true)
-
-	--// Saves A New Style Of Structure \\--
-	AviationFramework:WaitForChild("CommunicationUnit"):WaitForChild("ProcessData"):Fire(RequestObject.Format(self))
-end
-
---// Requesting Unit \\--
-function Aviation.RequestModule()
-    --// Rarely Used \\--
-	return RequestObject
-end
-
-function Aviation.Structure(Player)
-    --// Formats The Structure \\--
-    --// Returns A Stable Structure Similar To The Original \\--
-    ForStart()
-	local RequestingUnit = Aviation.RequestModule()
-	local CommunicationUnit = AviationFramework:WaitForChild("CommunicationUnit")
-
-    local RequestData = CommunicationUnit:WaitForChild("RequestData")
-    local RequestServer = CommunicationUnit:WaitForChild("RequestServer")
-
-	if IsClient then
-		Location(false)
-        
-		local SelfStructure = RequestData:InvokeServer()
-		return RequestingUnit.StructureFormat(SelfStructure)
-	elseif IsServer then
-		Location(true)
-		assert(Player, "Argument[1], Player Is Invalid!")
-		
-		local SelfStructure = RequestServer:Invoke(Player)
-		return RequestingUnit.StructureFormat(SelfStructure)
-	end
-end
+Aviation.Signal = Signal
 
 return Aviation

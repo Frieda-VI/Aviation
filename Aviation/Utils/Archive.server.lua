@@ -1,4 +1,3 @@
-
 --// Archive Script \\--
 --// By Frieda_VI \\--
 
@@ -8,6 +7,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+
 --// Aviation Variables And Statics \\--
 local Manager = ReplicatedStorage:WaitForChild("Aviation")
 local CommunicationUnit = Manager:WaitForChild("CommunicationUnit")
@@ -16,16 +16,17 @@ local ProcessData = CommunicationUnit:WaitForChild("ProcessData")
 local RequestData = CommunicationUnit:WaitForChild("RequestData")
 local RequestServer = CommunicationUnit:WaitForChild("RequestServer")
 
+
 --// Archiver \\--
 local Archiver = {}
 
 --// Key Should NEVER Change In Game! \\--
 local String = "SECURED_"
 
---// Function \\--
 
+--// Function \\--
 local function Remove(Player)
-    --// Garbage Collector \\--
+	--// Garbage Collector \\--
 	if Archiver[String .. Player.UserId] then
 		Archiver[String .. Player.UserId] = nil
 	else
@@ -40,14 +41,16 @@ local function Post(Player)
 		local PlayerArchive = Archiver[tostring(String .. Player.UserId)]
 		return PlayerArchive
 	end
-	
+
 	return
 end
+
 
 ProcessData.Event:Connect(function(Structure)
 	local Player = Structure.Player
 	Archiver[String .. Player.UserId] = Structure
 end)
+
 
 RequestData.OnServerInvoke = Post
 RequestServer.OnInvoke = Post
