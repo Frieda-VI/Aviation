@@ -69,6 +69,17 @@ function Signal.new()
     }, Signal)
 end
 
+function Signal.Wrap(FUNCTION)
+    assert(type(FUNCTION) == "function", "Argument[1] Must Be Of Type ::FUNCTION::!")
+
+    --// Creates A Signal And Attaches A Frieda Connection To It \\--
+
+    local WrappedSignal = Signal.new()
+    WrappedSignal:Connect(FUNCTION)
+
+    return WrappedSignal
+end
+
 function Signal:Destroy()
     if Signal.IsSignal(self) then
         --// Destroys The Signal Object \\--
@@ -133,7 +144,7 @@ end
 
 function Signal:Connect(FUNCTION)
     assert(type(FUNCTION) == "function", "Argument[1] Must Be Of Type ::FUNCTION::!")
-    
+
     --// Connect A Function To The Signal \\--
     local Connection = RbxConnection.Wrap(FUNCTION)
 
