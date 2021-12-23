@@ -25,6 +25,9 @@ local Signal = require(Utils:WaitForChild("Signal"))
 local Vider = require(Utils:WaitForChild("Vider"))
 
 
+Aviation.Signal = Signal
+Aviation.Vider = Vider
+
 --// Client Function and Sever Function Contains Core Functions For The Remote Object \\--
 --local ClientFunction = require(RemoteFunctions:WaitForChild("ClientFunction")) [[Used By Request.lua]]
 local ServerFunction = require(RemoteFunctions:WaitForChild("ServerFunction"))
@@ -462,7 +465,5 @@ function Aviation:FromList(List)
 	end
 end
 
-
-Aviation.Signal = Signal
 
 return Aviation

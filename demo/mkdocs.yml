@@ -1,0 +1,45 @@
+site_name: Aviation
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+  features:
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+nav:
+  - Introduction: "index.md"
+  - Installation: "pages/Shared/Installation.md"
+  - Tour to Aviation: "pages/Shared/Tour.md"
+
+  - API: 
+    - Server: "pages/Api/Server.md"
+    - Client: "pages/Api/Client.md"
+
+    - Server and Client: "pages/Api/ServerClient.md"
+
+  - Utils: 
+    - Signals: "pages/Utils/Signals.md"
+    - Vider: "pages/Utils/Vider.md"
+
+  - Need Help?: "pages/Shared/FileReport.md"
