@@ -74,7 +74,7 @@ SignalObject will be compatible to Vider in the next update.
 ## Vider Checking
 Helps to check wether an object is a ViderObject or not.
 
-```lua lua hl_lines="2"
+```lua hl_lines="2"
 local Vider = Aviation.Vider
 Vider.IsVider(myVider) --> Proves wether object is a ViderObject or not: boolean
 ```
