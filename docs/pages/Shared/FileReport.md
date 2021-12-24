@@ -7,7 +7,7 @@ If ever you come across some bugs, please [file an issue](https://github.com/Fri
 
 [GitHub Repo](https://github.com/Frieda-VI/Aviation)
 
-Discord: Frieda_VI#9522
+Discord: Frieda_VI#9522, 
 DiscordID: 870241483431751751
 
 

@@ -352,6 +352,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fire-all-client" class="md-nav__link">
+    Fire all Client
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -546,6 +553,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fire-all-client" class="md-nav__link">
+    Fire all Client
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -637,6 +651,15 @@ Right after creating and attaching functions to the <code>AviationObject</code>|
 </span><a id="__codelineno-5-15" name="__codelineno-5-15"></a>
 <a id="__codelineno-5-16" name="__codelineno-5-16"></a>    <span class="n">PlayerObject</span><span class="p">:</span><span class="n">Process</span><span class="p">()</span>
 <a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="fire-all-client">Fire all Client</h3>
+<p>Firing a specific Client on the Server needs a player from which you'll retrive the <em>PlayerStructure</em> and call the <code>:FireClient</code> method on. The <code>:FireClient</code> method does <strong>not</strong> consume a Player. What about firing all the Remotes of a Player?</p>
+<p>The <code>:FireAll</code> method is called directly on Aviation and takes the RemoteObject name that is to be fired as first argument and the rest of the arguments are passed. This method returns a table of all the PlayerResponces if there were any.</p>
+<p>How the PlayerResponces is structured, <code>{PlayerName = {Data, Data, ...}}</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kd">local</span> <span class="n">Aviation</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">ReplicatedStorage</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="s2">&quot;Aviation&quot;</span><span class="p">))</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="hll"><span class="kd">local</span> <span class="n">PlayerResponces</span> <span class="o">=</span> <span class="n">Aviation</span><span class="p">:</span><span class="n">FireAll</span><span class="p">(</span><span class="s2">&quot;Messenger&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello world from Aviation!&quot;</span><span class="p">)</span>
+</span><a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frieda responded with&quot;</span><span class="p">,</span> <span class="nb">table.unpack</span><span class="p">(</span><span class="n">PlayerResponces</span><span class="p">[</span><span class="s2">&quot;Frieda_VI&quot;</span><span class="p">]))</span>
 </code></pre></div>
 
               

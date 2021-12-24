@@ -553,6 +553,7 @@ Shared functions are those functions which are available on both the Server and 
 </div>
 </div>
 <h2 id="getting-remoteobject">Getting RemoteObject</h2>
+<p>The <code>:HasRemote</code> is a method than can be called on the PlayerObject to ensure that a certain RemoteObject is present or not. <code>HasRemote</code> takes the argument of the RemteObject name and returns a boolean confirming wether the RemoteObject exists or not.</p>
 <p>This function can be used on both the initial <em>PlayerObject</em> or the <em>PlayerStructure</em>. The <code>:GetRemote()</code> method takes the RemoteObject's name as argument and returns the RemoteObject. This code can be used by both the Server (initial runtime or random ServerScript) and the Client.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kd">local</span> <span class="n">PlayerStructure</span> <span class="o">=</span> <span class="n">Aviation</span><span class="p">.</span><span class="n">GetStructure</span><span class="p">(</span><span class="n">Player</span><span class="p">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="hll"><span class="kd">local</span> <span class="n">Messenger</span> <span class="o">=</span> <span class="n">PlayerStructure</span><span class="p">:</span><span class="n">GetRemote</span><span class="p">(</span><span class="s2">&quot;Messenger&quot;</span><span class="p">)</span>

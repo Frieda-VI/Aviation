@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#vider" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -367,10 +372,78 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Vider
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Vider
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-maininstance" class="md-nav__link">
+    Adding MainInstance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-secondaryinstance" class="md-nav__link">
+    Adding SecondaryInstance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning" class="md-nav__link">
+    Cleaning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-functions" class="md-nav__link">
+    Cleaning Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vider-checking" class="md-nav__link">
+    Vider Checking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -405,15 +478,128 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-maininstance" class="md-nav__link">
+    Adding MainInstance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-secondaryinstance" class="md-nav__link">
+    Adding SecondaryInstance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning" class="md-nav__link">
+    Cleaning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-functions" class="md-nav__link">
+    Cleaning Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vider-checking" class="md-nav__link">
+    Vider Checking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
 
-  <h1>Vider</h1>
-
-
+<h1 id="vider">Vider</h1>
+<p>Vider is a janitor module that uses french terms. It's recommended to avoid using <em>Vider</em> directly in your game as it's specific to Aviation. You could clone <em>Vider</em> and place it in <em>ReplicatedStorage</em> to use it.</p>
+<h2 id="constructor">Constructor</h2>
+<p><code>Vider.new()</code> is the vider constructor which doesn't take any arguments and return a ViderObject.</p>
+<p>It is recommended to use <code>Vider:Debute()</code> instead of <code>Vider.new()</code>, <em>Debute</em> takes it a MainInstance and other which are considered as secondary instances. If the MainInstance is destroyed, it will trigger <code>Vider:Nettoyer</code> which is the cleaning up method. Other can only be RBXScriptConnection or Instances. <em>Debute</em> returns a ViderObject with the MainInstance as the controller and other arguments as secondary objects.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">local</span> <span class="n">Vider</span> <span class="o">=</span> <span class="n">Aviation</span><span class="p">.</span><span class="n">Vider</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="hll"><span class="kd">local</span> <span class="n">myVider</span> <span class="o">=</span> <span class="n">Vider</span><span class="p">:</span><span class="n">Debute</span><span class="p">(</span><span class="n">workspace</span><span class="p">.</span><span class="n">Baseplate</span><span class="p">,</span> <span class="n">workspace</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Child</span><span class="p">)</span>
+</span><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="n">Child</span><span class="p">)</span>
+</span><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="hll"><span class="kr">end</span><span class="p">),</span> <span class="n">workspace</span><span class="p">.</span><span class="n">Part</span><span class="p">)</span> 
+</span><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1">-- Vider only works with Instances </span>
+</code></pre></div>
+<h2 id="adding-maininstance">Adding MainInstance</h2>
+<p>You can have more than 1 MainInstance in your ViderObject, if a MainInstance is destroyed, all the secondary objects will be destroyed but the MainInstances wouldn't be destroyed by default. We use the <code>:AjouteMain</code> method on our <em>ViderObject</em> to add a MainInstance.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="hll"><span class="n">myVider</span><span class="p">:</span><span class="n">AjouteMain</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="adding-secondaryinstance">Adding SecondaryInstance</h2>
+<p>Just like you can add MainInstances, you can also add more SecondaryInstance which will be Destroyed|Disconnected when <em>nettoyer</em> is called.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">myVider</span><span class="p">:</span><span class="n">AjouteAutre</span><span class="p">(</span><span class="n">workspace</span><span class="p">.</span><span class="n">Part1</span><span class="p">,</span> <span class="n">workspace</span><span class="p">.</span><span class="n">Part2</span><span class="p">,</span> <span class="n">game</span><span class="p">.</span><span class="n">Players</span><span class="p">.</span><span class="n">PlayerAdded</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Player</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A new player has joined the game!&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="kr">end</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="cleaning">Cleaning</h2>
+<p>ViderObjects will manually undergo the cleaning process after a MainInstance is destroyed but it is possible to force clean the ViderObject. The <code>:Nettoyer</code> method is called on the ViderObject will forcefully clean the the SecondaryInstance by default but if the boolean true is passed as argument, the MainInstances will also be destroyed.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">myVider</span><span class="p">:</span><span class="n">Nettoyer</span><span class="p">()</span> <span class="c1">-- Main Instance won&#39;t be destroy</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">myVider</span><span class="p">:</span><span class="n">Nettoyer</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="c1">-- Main Instances will be destroyed</span>
+</code></pre></div>
+<h2 id="cleaning-functions">Cleaning Functions</h2>
+<p>There are 2 functions which are charged to run before and after cleaning.</p>
+<p><code>:AvantNet</code> method takes a callback function as argument and it will be call before cleaning the Instances, there can only be 1 <em>AvantNet</em> function.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="hll"><span class="n">myVider</span><span class="p">:</span><span class="n">AvantNet</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+</span><a id="__codelineno-4-2" name="__codelineno-4-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleaning process has been triggered&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>    <span class="n">mySignal</span><span class="p">:</span><span class="n">Destroy</span><span class="p">()</span> <span class="c1">-- Perfect location to Destroy SignalObjects</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="hll"><span class="kr">end</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>:ApresNet</code> method takes a callback function as argument and it will be call after cleaning the Instances, there can only be 1 <em>ApresNet</em> function.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="hll"><span class="n">myVider</span><span class="p">:</span><span class="n">ApresNet</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+</span><a id="__codelineno-5-2" name="__codelineno-5-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleaning process has been completed&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="hll"><span class="kr">end</span><span class="p">)</span>
+</span></code></pre></div>
+<p>SignalObject will be compatible to Vider in the next update.</p>
+<h2 id="vider-checking">Vider Checking</h2>
+<p>Helps to check wether an object is a ViderObject or not.</p>
+<p><code>lua lua hl_lines="2"
+local Vider = Aviation.Vider
+Vider.IsVider(myVider) --&gt; Proves wether object is a ViderObject or not: boolean</code></p>
 
               
             </article>

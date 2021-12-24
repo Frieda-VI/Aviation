@@ -105,3 +105,19 @@ Players.PlayerAdded:Connect(function(Player)
     PlayerObject:Process()
 end)
 ```
+
+### Fire all Client
+
+Firing a specific Client on the Server needs a player from which you'll retrive the *PlayerStructure* and call the `:FireClient` method on. The `:FireClient` method does **not** consume a Player. What about firing all the Remotes of a Player?
+
+The `:FireAll` method is called directly on Aviation and takes the RemoteObject name that is to be fired as first argument and the rest of the arguments are passed. This method returns a table of all the PlayerResponces if there were any.
+
+How the PlayerResponces is structured, `{PlayerName = {Data, Data, ...}}`.
+
+
+```lua hl_lines="2"
+local Aviation = require(ReplicatedStorage:WaitForChild("Aviation"))
+local PlayerResponces = Aviation:FireAll("Messenger", "Hello world from Aviation!")
+
+print("Frieda responded with", table.unpack(PlayerResponces["Frieda_VI"]))
+```

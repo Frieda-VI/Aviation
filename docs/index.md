@@ -22,4 +22,4 @@ while true do
 end
 ```
 
-If your game is coded in a way that **overly** uses RemoteEvents|Functions, I'd suggest you stay away from Aviation as this style of coding is not efficient at all and is to be avoided.
+If your game is coded like the code above, that is the **overly** usage of RemoteEvents|Functions, I'd suggest you stay away from Aviation as this style of coding is not efficient at all and is to be avoided.

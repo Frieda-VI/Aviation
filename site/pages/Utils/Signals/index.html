@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#signal" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -353,10 +358,98 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Signals
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Signals
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-signals" class="md-nav__link">
+    Creating Signals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destroying-signals" class="md-nav__link">
+    Destroying Signals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attaching-functions" class="md-nav__link">
+    Attaching Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-signals" class="md-nav__link">
+    Fire Signals
+  </a>
+  
+    <nav class="md-nav" aria-label="Fire Signals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fire" class="md-nav__link">
+    Fire
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firespawn" class="md-nav__link">
+    FireSpawn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firedefer" class="md-nav__link">
+    FireDefer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signal-checking" class="md-nav__link">
+    Signal Checking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -405,15 +498,153 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-signals" class="md-nav__link">
+    Creating Signals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destroying-signals" class="md-nav__link">
+    Destroying Signals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attaching-functions" class="md-nav__link">
+    Attaching Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-signals" class="md-nav__link">
+    Fire Signals
+  </a>
+  
+    <nav class="md-nav" aria-label="Fire Signals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fire" class="md-nav__link">
+    Fire
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firespawn" class="md-nav__link">
+    FireSpawn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firedefer" class="md-nav__link">
+    FireDefer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signal-checking" class="md-nav__link">
+    Signal Checking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
 
-  <h1>Signals</h1>
-
-
+<h1 id="signal">Signal</h1>
+<p>Signals allows you to have your own customised version of Roblox events which can receive callback functions. Signals works on both the Client and the Server and should be kept to the code where it was created. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">local</span> <span class="n">Signals</span> <span class="o">=</span> <span class="n">Aviation</span><span class="p">.</span><span class="n">Signal</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="hll"><span class="kd">local</span> <span class="n">mySignal</span> <span class="o">=</span> <span class="n">Signals</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+</span><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="hll"><span class="n">mySignal</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="hll"><span class="kr">end</span><span class="p">)</span>
+</span><a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="hll"><span class="n">mySignal</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="s2">&quot;Aviation signals are pog!&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="creating-signals">Creating Signals</h2>
+<p><code>Signal.new()</code> is the signal constructor which doesn't take any arguments and returns a SignalObject on which Callback functions can be attached.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kd">local</span> <span class="n">mySignal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+</code></pre></div>
+<p>Constructs a new Signal that wraps a function and returns a SignalObject, the SignalObject can then be mounted with more callback functions. Not that Wrap should only be called once, as it will create a new SignalObject.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="hll"><span class="kd">local</span> <span class="n">myConnection</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Wrap</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="hll"><span class="kr">end</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="destroying-signals">Destroying Signals</h2>
+<p>SignalObjects have a <code>:Destroy()</code> method which will disconnect all the attached functions to the Signal and will attempt to clear the Signal. Thus rendering the following signal useless.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="hll"><span class="n">myConnection</span><span class="p">:</span><span class="n">Destroy</span><span class="p">()</span>
+</span></code></pre></div>
+<h2 id="attaching-functions">Attaching Functions</h2>
+<p>Functions can be attached to Signals, very simply. <code>:Connect()</code> takes in a callback function which will be call when a Signal is fired. Callback functions are allowed to yield and multiple callback functions can be attached to a SignalObject.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="hll"><span class="n">myConnection</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+</span><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="hll"><span class="kr">end</span><span class="p">)</span>
+</span><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">myConnection</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>    <span class="n">StringValue</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">Message</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="fire-signals">Fire Signals</h2>
+<p>There are 3 ways of firing signals. Well be taking the <code>myConnection</code> for example.</p>
+<h3 id="fire">Fire</h3>
+<p>The default <code>:Fire()</code> function yields by default.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="hll"><span class="n">myConnection</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="firespawn">FireSpawn</h3>
+<p>The <code>:FireSpawn()</code> function doesn't yield and uses <code>task.spawn</code>, which creates a new thread.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="hll"><span class="n">myConnection</span><span class="p">:</span><span class="n">FireSpawn</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="firedefer">FireDefer</h3>
+<p>The <code>:FireDefer()</code> function doesn't yield and uses <code>task.defer</code>, which can be used to achive a similar behaviour to <code>:FireSpawn</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="hll"><span class="n">myConnection</span><span class="p">:</span><span class="n">FireDefer</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="signal-checking">Signal Checking</h2>
+<p>Helps to check wether an object is a SignalObject or not.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kd">local</span> <span class="n">Signal</span> <span class="o">=</span> <span class="n">Aviation</span><span class="p">.</span><span class="n">Signal</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="hll"><span class="n">Vider</span><span class="p">.</span><span class="n">IsSignal</span><span class="p">(</span><span class="n">myVider</span><span class="p">)</span> <span class="c1">--&gt; Proves wether object is a SignalObject or not: boolean</span>
+</span></code></pre></div>
 
               
             </article>

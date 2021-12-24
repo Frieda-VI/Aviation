@@ -34,6 +34,8 @@ To obtain the *PlayerObject* on another ServerScript that's not the Runtime or a
 
 ## Getting RemoteObject
 
+The `:HasRemote` is a method than can be called on the PlayerObject to ensure that a certain RemoteObject is present or not. `HasRemote` takes the argument of the RemteObject name and returns a boolean confirming wether the RemoteObject exists or not.
+
 This function can be used on both the initial *PlayerObject* or the *PlayerStructure*. The `:GetRemote()` method takes the RemoteObject's name as argument and returns the RemoteObject. This code can be used by both the Server (initial runtime or random ServerScript) and the Client.
 
 ```lua hl_lines="2-3"
