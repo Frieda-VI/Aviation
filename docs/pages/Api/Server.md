@@ -56,10 +56,10 @@ Since the *AviationObject* is dedicated to a Player, we can call it a **PlayerOb
 
 Now that we have our *PlayerObject*, we can begin creating remotes which should be done before processing `PlayerObject:Process()` the *PlayerObject*.
 
-The method demonstrated below is a primitive method, and is not recommended to be used directly but it is important to learn how Aviation functions in order to properly use it. Later on you will learn about a more efficient method at creating *RemoteObjects* and attaching functions to them. The `:CreateRemote()` method takes the Remote's name as argument and returns a RemoteObject, which functions can be attached to. The code below assumes that you're using the codes above to create the *PlayerObject*.
+The method demonstrated below is a primitive method, and is not recommended to be used directly but it is important to learn how Aviation functions in order to properly use it. Later on you will learn about a more efficient method at creating *RemoteObjects* and attaching functions to them. The `:NewRemote()` method takes the Remote's name as argument and returns a RemoteObject, which functions can be attached to. The code below assumes that you're using the codes above to create the *PlayerObject*.
 
 ``` lua hl_lines="1"
-    local FriedaRemote = PlayerObject:CreateRemote("FriedaRemote")
+    local FriedaRemote = PlayerObject:NewRemote("FriedaRemote")
 
     PlayerObject:Process()
 ```
@@ -71,7 +71,7 @@ Not all *RemoteObjects* will have functions attached to them as some will be use
 > All functions MUST be attached to their RemoteObjects before processing the *PlayerObject*.
 
 ``` lua hl_lines="2-5"
-    local FriedaRemote = PlayerObject:CreateRemote("FriedaRemote")
+    local FriedaRemote = PlayerObject:NewRemote("FriedaRemote")
     FriedaRemote:BindToServer(function(Player, ...)
         print("Frieda Remote was invoked by " .. Player.Name, ...)
         return true
