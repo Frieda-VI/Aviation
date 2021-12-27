@@ -5,7 +5,7 @@
 
 > **What's Aviation?**
 
-Aviation is a library and *partial framework* designed for Roblox and is meant to replace the *direct usage* of RemoteEvent and RemoteFunctions. It helps to keep communication between client and server and vice versa organised and well maintained. Aviation was formerly known as 'hypixel26's Custom RemoteFramework', and is provided to you by [Frieda_VI](https://www.roblox.com/users/479498903/profile).
+Aviation is a library and *partial framework* designed for Roblox and is meant to replace the *direct usage* of RemoteEvent and RemoteFunction. It helps to keep communication between client and server, and vice versa organised while being well maintained. Aviation was formerly known as 'hypixel26's Custom RemoteFramework', and is provided to you by [Frieda_VI](https://www.roblox.com/users/479498903/profile).
 
 ---
 
@@ -22,4 +22,4 @@ while true do
 end
 ```
 
-If your game is coded like the code above, that is the **overly** usage of RemoteEvents|Functions, I'd suggest you stay away from Aviation as this style of coding is not efficient at all and is to be avoided.
+If your game is coded like the code above, that is the **overly** usage of RemoteEvent|Function, I'd suggest you stay away from Aviation as this style of coding is not efficient at all, and is to be avoided.

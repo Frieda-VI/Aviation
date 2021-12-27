@@ -4,7 +4,7 @@
 
 ## Basic Configuration
 
-Server scripts using *Aviation* should require and `.await()` until it starts. You would usually want to dedicate an entire server script just for the creation of RemoteObjects and in that script, you should call the `.Start()` method on *Aviation*.
+Server scripts using *Aviation* should require and `.Await()` until it starts. You would usually want to dedicate an entire server script just for the creation of RemoteObjects and in that script, you should call the `.Start()` method on *Aviation*.
 
 ``` lua hl_lines="5 6"
 --// Aviation runner dedicated to creating RemoteEvents \\--

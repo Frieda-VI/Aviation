@@ -7,7 +7,7 @@ Aviation supports both the **Roblox Studio** and [**Rojo**](https://rojo.space/d
 
 > **NOTE**
 
-__Aviation should always be in *ReplicatedStorage* and the names of the files should NEVER changed.__
+__Aviation should always be in *ReplicatedStorage* and the file names should NEVER changed.__
 
 
 >Visual Studio Code and ROJO Workflow:

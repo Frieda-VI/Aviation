@@ -7,7 +7,7 @@ The examples below do not demonstrate it's full usage and functions but just a q
 
 > Server Code
 
-Demonstrates the usage of RemoteObjects, creation of RemoteObjects, binding functions to them and the usage of signals.
+The code below demonstrates the usage of RemoteObjects, creation of RemoteObjects, binding functions to them and the usage of signals.
 
 ```lua
 --// Aviation Remote Server RunTime \\--
