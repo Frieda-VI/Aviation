@@ -1,6 +1,8 @@
 --// This is the `Try and Catch` Module by Frieda_VI \\--
 --// This is meant to resemble the C# version of Try and Catch \\--
 
+--// More info on how to use this util: https://github.com/Frieda-VI/try-catch
+
 local ExceptionHandler = {}
 ExceptionHandler.__index = ExceptionHandler
 
