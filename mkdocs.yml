@@ -37,6 +37,7 @@ nav:
     - Client: "pages/Api/Client.md"
 
     - Server and Client: "pages/Api/ServerClient.md"
+    - Collapser: "pages/Api/Collapser.md"
 
   - Utils: 
     - Signals: "pages/Utils/Signals.md"
