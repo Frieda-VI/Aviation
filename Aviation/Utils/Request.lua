@@ -135,13 +135,85 @@ function ProcessFunctions.Format(Structure)
 
 	local Player = Structure.Player
 	local Remotes = Structure.Remotes
+	local Collapser = Structure.Collapser
 
 	local NewStructure = {}
 	NewStructure.Player = Player
 	NewStructure.Remotes = Remotes
+	NewStructure.Collapser = Collapser
 
 	return NewStructure
 end
+
+
+--// Server Only Method \\--
+if IsServer then
+
+	--// This Is A Direct Brought Down Of Aviation From Init Module Script \\--
+
+
+
+	--// Sets The Collapse Method For The Server Section \\--
+		function ProcessFunctions:Collapse(TypeIndex)
+		--// This Function Is Only Meant To Be Called When The Player Is Leaving The Game \\--
+		--// Should Be In The `Player.OnLeaving` Method \\--
+
+		--// TypeIndex Can Either Be A Boolean Or A String \\--
+
+		--// If The Boolean Option Is Chosen, The TypeIndex Should Always Equal To True \\--
+		--// The Boolean Option Will Call All The Collapser Methods \\--
+
+		--// Boolean :: String \\--
+
+		--// If The String Option Is Chosen, The TypeIndex Should Indicate An Index Leading To A Collapser Method \\--
+		--// This Option Ensures That Only One Collapser Is Called, Based On The String Provided \\--
+
+
+		local ReturnedValues = {} --// A Dictionary Which Keeps Track Of All The Returned Values \\--
+		--// ReturnedValues Stores Returned Valued With The TypeIndex \\--
+		--// { TypeIndex = { Value1, Value2 } } \\--
+
+
+		--// The Player The Only Parameter Passed \\--
+
+		if type(TypeIndex) == "boolean" and TypeIndex == true then
+			--// Boolean Option \\--
+			for _Index, Function in pairs(self.Collapser) do
+				--// Loops Through All The Collapsers And Fires Them Individually \\--
+				--// Note: No Collapser Method Should EVER Yeild! \\--
+
+				if type(Function) == "function" then
+					--// Uses Coroutine To Assume Smooth Running \\--
+					--// As Well As Passes The Player `self.Player` As Parameter \\--
+					ReturnedValues[TypeIndex] = { coroutine.wrap(Function)(self.Player) }
+				else
+					--// Safety Precaution But It Shouldn't Ever Happen \\--
+					warn("The Function Provided Is Not Of Type ::function::!")
+					continue
+				end
+			end
+
+		elseif type(TypeIndex) == "string" and type(self.Collapser[TypeIndex]) == "function" then
+			--// Selects A Specific Collapser Based On The Index \\--
+			--// Provides Only One Argument, That Is The Player \\--
+
+			ReturnedValues[TypeIndex] = { coroutine.wrap(self.Collapser[TypeIndex])(self.Player) }
+
+			--// A Unique Function Only Available To The String Option \\--
+			function ReturnedValues.Get(Index)
+				Index = Index or 1 --// The First Element \\--
+				return ReturnedValues[TypeIndex][Index]
+			end
+		else
+			warn("The Function Provided Is Not Of Type ::function::!")
+		end
+
+
+		return ReturnedValues
+	end
+end
+
+
 
 function ProcessFunctions.StructureFormat(FormatedStructure)
 	--// This Function Reconstructs The Archiver Formated Version To A More Details \\--
@@ -177,6 +249,13 @@ function ProcessFunctions.StructureFormat(FormatedStructure)
 
 			NewStructure[Index] = self
 		end
+	end
+
+	--// Setting Up The Collapser Section \\--
+	--// A Cross Server Only Feature \\--
+	if IsServer then
+		NewStructure["Player"] = FormatedStructure.Player
+		NewStructure["Collapser"] = FormatedStructure.Collapser
 	end
 
 	return NewStructure

@@ -8,7 +8,7 @@ local RunService = game:GetService("RunService")
 
 
 local Aviation = {}
-Aviation.__index= Aviation
+Aviation.__index = Aviation
 
 
 --// Aviation Self, Helps To Allocate Important Utils And Other Files \\--
@@ -36,6 +36,27 @@ local ServerFunction = require(RemoteFunctions:WaitForChild("ServerFunction"))
 --// References Used To Determine If Action Can Be Performed Or Not \\--
 local IsClient = RunService:IsClient()
 local IsServer = RunService:IsServer()
+
+
+--// Creates An AviationObject Store If The RunTime Is The Server \\--
+if IsServer then
+    Aviation.Structures = {}
+
+    --// Provides The New Method Of Getting Structures Without Posting \\--
+    --// This Method Only Works On The Server \\--
+
+    function Aviation.GetStructure(Player)
+        assert(Player, "Player Passed As Argument Is Invalid!")
+
+        --// This Method Is Capable Of Returning The Original Object Created \\--
+        --// The Original Object Has Preserved Functionalities \\--
+
+        --// It's Recommended To Use The New `GetStructure` Method Instead Of `.Structure` For The Server \\--
+        --// However, We Do Not Intend Of Deprecating The Previous `.Structure`, Nor Change The Way It Functions \\--
+
+        return Aviation.Structures[Player]
+    end
+end
 
 
 local function Location(Server)
@@ -180,8 +201,7 @@ function Aviation.new(Player, RemoteName)
     end
     local PlayerFolder = Folder()
 
-
-	return setmetatable({
+    local AviationObject = setmetatable({
         Player = Player;
 
         Instance = PlayerFolder;
@@ -189,8 +209,15 @@ function Aviation.new(Player, RemoteName)
         ["RemoteName"] = RemoteName;
         Remotes = {};
 
+        Collapser = {};
+
         ViderObject = Vider:Debute(Player, PlayerFolder); --// Garbage Collector \\--
     }, Aviation)
+
+    --// Storing The Aviation Object In The Structures Dictionary Under The Player As Index \\--
+    Aviation.Structures[Player] = AviationObject
+
+	return AviationObject
 end
 
 --//    Serialisation    \\--
@@ -449,13 +476,28 @@ function Aviation:FromList(List)
 
 	for Index, Value in pairs(List) do
 		if type(Index) == "string" then
-			--// Is A String And Has A Function To Bind With \\--
-            --// Creation Of Remote Object \\--
-			local RemoteObject = self:NewRemote(Index)
-
             if type(Value) == "function" then
+                --// Is A String And Has A Function To Bind With \\--
+                --// Creation Of Remote Object \\--
+			    local RemoteObject = self:NewRemote(Index)
+
                 --// Attaches A Function \\--
                 RemoteObject:BindToServer(Value)
+            elseif type(Value) == "table" then
+                --// Is A String and Has A Table With Both Callback and Collapser \\--
+
+                --// Contains The Collapser Function \\--
+                local ToBind, Collapser = Value["Callback"], Value["Collapser"]
+                assert(type(ToBind) == "function" and type(Collapser) == "function",
+                     "Value -`type(::table::)` ; Must Provide Both Callback And Collapser!")
+
+                --// Creation Of Remote Object \\--
+                --// Attaches A Function \\--
+			    local RemoteObject = self:NewRemote(Index)
+                RemoteObject:BindToServer(ToBind)
+
+                --// Attaches The Collapser With The Index \\--
+                self.Collapser[Index] = Collapser
 			end
 		elseif type(Value) == "string" then
 			--// No Functions To Bind \\--
@@ -464,6 +506,71 @@ function Aviation:FromList(List)
 		end
 	end
 end
+
+
+
+
+--// Similar To Destroying A PlayerStructure \\--
+
+function Aviation:Collapse(TypeIndex) --// Key Note: Collapsers Will Only Work On The Original Aviation Object \\--
+    --// This Function Is Only Meant To Be Called When The Player Is Leaving The Game \\--
+    --// Should Be In The `Player.OnLeaving` Method \\--
+
+    --// TypeIndex Can Either Be A Boolean Or A String \\--
+
+    --// If The Boolean Option Is Chosen, The TypeIndex Should Always Equal To True \\--
+    --// The Boolean Option Will Call All The Collapser Methods \\--
+
+    --// Boolean :: String \\--
+
+    --// If The String Option Is Chosen, The TypeIndex Should Indicate An Index Leading To A Collapser Method \\--
+    --// This Option Ensures That Only One Collapser Is Called, Based On The String Provided \\--
+
+
+    local ReturnedValues = {} --// A Dictionary Which Keeps Track Of All The Returned Values \\--
+    --// ReturnedValues Stores Returned Valued With The TypeIndex \\--
+    --// { TypeIndex = { Value1, Value2 } } \\--
+
+
+    --// The Player The Only Parameter Passed \\--
+
+    if type(TypeIndex) == "boolean" and TypeIndex == true then
+        --// Boolean Option \\--
+        for _Index, Function in pairs(self.Collapser) do
+            --// Loops Through All The Collapsers And Fires Them Individually \\--
+            --// Note: No Collapser Method Should EVER Yeild! \\--
+
+            if type(Function) == "function" then
+                --// Uses Coroutine To Assume Smooth Running \\--
+                --// As Well As Passes The Player `self.Player` As Parameter \\--
+                ReturnedValues[TypeIndex] = { coroutine.wrap(Function)(self.Player) }
+            else
+                --// Safety Precaution But It Shouldn't Ever Happen \\--
+                warn("The Function Provided Is Not Of Type ::function::!")
+                continue
+            end
+        end
+
+    elseif type(TypeIndex) == "string" and type(self.Collapser[TypeIndex]) == "function" then
+        --// Selects A Specific Collapser Based On The Index \\--
+        --// Provides Only One Argument, That Is The Player \\--
+
+        ReturnedValues[TypeIndex] = { coroutine.wrap(self.Collapser[TypeIndex])(self.Player) }
+
+        --// A Unique Function Only Available To The String Option \\--
+        function ReturnedValues.Get(Index)
+            Index = Index or 1 --// The First Element \\--
+            return ReturnedValues[TypeIndex][Index]
+        end
+    else
+        warn("The TypeIndex Provided Is Invalid And Thus Can't Be Used!")
+    end
+
+
+    return ReturnedValues
+end
+
+
 
 
 return Aviation
