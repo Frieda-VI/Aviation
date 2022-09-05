@@ -1,13 +1,13 @@
 
 # Vider
 
-Vider is a janitor module that uses french terms. It's recommended to avoid using *Vider* directly in your game as it's specific to Aviation. You could clone *Vider* and place it in *ReplicatedStorage* to use it.
+Vider is a janitor module that uses French terms. It's recommended to avoid using *Vider* directly in your game as it's specific to Aviation. You could clone *Vider* and place it in *ReplicatedStorage* to use it.
 
 ## Constructor
 
-`Vider.new()` is the vider constructor which doesn't take any arguments and return a ViderObject.
+`Vider.new()` is the constructor which doesn't take any arguments and returns a ViderObject.
 
-It is recommended to use `Vider:Debute()` instead of `Vider.new()`, *Debute* takes it a MainInstance and other which are considered as secondary instances. If the MainInstance is destroyed, it will trigger `Vider:Nettoyer` which is the cleaning up method. Other can only be RBXScriptConnection or Instances. *Debute* returns a ViderObject with the MainInstance as the controller and other arguments as secondary objects.
+It is recommended to use `Vider:Debute()` instead of `Vider.new()`. *Debute* takes in a MainInstance and other which are considered as secondary instances. If the MainInstance is destroyed, it will trigger `Vider:Nettoyer` which is the cleaning up method. Other can only be RBXScriptConnection or Instances. *Debute* returns a ViderObject with the MainInstance as the controller and other arguments as secondary objects.
 
 ```lua hl_lines="3-5"
 local Vider = Aviation.Vider
@@ -16,7 +16,7 @@ local myVider = Vider:Debute(workspace.Baseplate, workspace.Changed:Connect(func
     print(Child)
 end), workspace.Part) 
 
--- Vider only works with Instances 
+-- Vider only works with instances 
 ```
 
 ## Adding MainInstance
@@ -39,18 +39,18 @@ end))
 
 ## Cleaning
 
-ViderObjects will manually undergo the cleaning process after a MainInstance is destroyed but it is possible to force clean the ViderObject. The `:Nettoyer` method is called on the ViderObject will forcefully clean the the SecondaryInstance by default but if the boolean true is passed as argument, the MainInstances will also be destroyed.
+ViderObjects will manually undergo the cleaning process after a MainInstance is destroyed but it is possible to force clean the ViderObject. The `:Nettoyer` method is called on the ViderObject will forcefully clean the the SecondaryInstance by default, but if `true` is passed as argument, the MainInstances will also be destroyed.
 
 ```lua
-myVider:Nettoyer() -- Main Instance won't be destroy
+myVider:Nettoyer() -- Main Instances won't be destroyed
 myVider:Nettoyer(true) -- Main Instances will be destroyed
 ```
 
 ## Cleaning Functions
 
-There are 2 functions which are charged to run before and after cleaning.
+There are 2 functions which run before and after cleaning.
 
-`:AvantNet` method takes a callback function as argument and it will be call before cleaning the Instances, there can only be 1 *AvantNet* function.
+`:AvantNet` method takes a callback function as argument which will be called before cleaning the instances, there can only be 1 *AvantNet* function.
 
 ```lua hl_lines="1 5"
 myVider:AvantNet(function()
@@ -60,7 +60,7 @@ myVider:AvantNet(function()
 end)
 ```
 
-`:ApresNet` method takes a callback function as argument and it will be call after cleaning the Instances, there can only be 1 *ApresNet* function.
+`:ApresNet` method takes a callback function as argument which will be called after cleaning the instances, there can only be 1 *ApresNet* function.
 
 ```lua hl_lines="1 3"
 myVider:ApresNet(function()
