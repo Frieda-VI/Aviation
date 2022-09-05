@@ -1,12 +1,12 @@
 
-# Shares Functions
+# Shared Functions
 
 > What are Shared Functions 
-Shared functions are those functions which are available on both the Server and the Client but they might not function the same.
+Shared functions are functions which are available on both the server and client, but they might not function the same.
 
 ## Await
 
-The `.Await()` method is an incontournable function which can be used by the Server or Client. To avoid errors, you should __ALWAYS__ use the `.Await()` before making your first reference to functions concerning Aviation.
+The `.Await()` method is an incontournable function which can be used by the server or client. To avoid errors, you should __ALWAYS__ use the `.Await()` before making your first reference to functions concerning Aviation.
 
 ```lua hl_lines="2"
 local Aviation = require(ReplicatedStorage:WaitForChild("Aviation"))
@@ -46,7 +46,7 @@ local FriedaRemote = PlayerStructure:GetRemote("FriedaRemote")
 
 ## Firing the Server | Client
 
-Firing the Server or Client is as simple as saying `RemoteObject:FireClient(Args)` or `RemoteObject:FireServer(Args)`, the fire methods can be given any arguments and will return data sent by the Server|Client. The `:FireClient()` method does NOT need the Player to be sent as argument.
+Firing the Server or Client is as simple as saying `RemoteObject:FireClient(Args)` or `RemoteObject:FireServer(Args)`, the fire methods can be given any arguments and will return data sent by the Server|Client. The `:FireClient()` method does NOT need the Player to be sent as an argument.
 
 
 === "Server"

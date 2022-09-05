@@ -3,11 +3,11 @@
 
 ## Installation Process
 
-Aviation supports both the **Roblox Studio** and [**Rojo**](https://rojo.space/docs/v6/) workflows. It is quite simple and straight forward to install Aviation.
+Aviation supports both the **Roblox Studio** and [**Rojo**](https://rojo.space/docs/v6/) workflows. It is quite simple and straightforward to install Aviation.
 
 > **NOTE**
 
-__Aviation should always be in *ReplicatedStorage* and the file names should NEVER changed.__
+__Aviation should always be in *ReplicatedStorage* and the file names should NEVER be changed.__
 
 
 >Visual Studio Code and ROJO Workflow:

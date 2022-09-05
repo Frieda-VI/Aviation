@@ -19,7 +19,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Aviation = require(ReplicatedStorage:WaitForChild("Aviation"))
 local Signal = Aviation.Signal
 
-Aviation.Start() --// Should be called ONLY one time
+Aviation.Start() --// Should only be called ONCE
 
 
 local FriedaSignal = Signal.Wrap(function(Message)
@@ -59,12 +59,12 @@ end)
 
 > Client Code
 
-Demonstrate how to use Aviation on the client. Uses `:Securise` which helps to make your RemoteObjects exploit prof and not changable. 
+Demonstration of how to use Aviation on the client. Uses `:Securise` which helps to make your RemoteObjects exploit proof and not changeable. 
 Features used in the Client Code: 
 
-+ Securising RemoteObjects.
-+ RemoteObject and attaching functions to them.
-+ Firing RemoteObject.
++ Securing RemoteObjects.
++ Attaching functions to RemoteObjects.
++ Firing RemoteObjects.
 
 ```lua
 --// Main Client Runtime \\--
@@ -77,7 +77,7 @@ Aviation.Await()
 
 
 local PlayerStructure = Aviation.Structure()
-PlayerStructure:Securise() -- To be run once on the main Client runtime
+PlayerStructure:Securise() -- To be run once on the main client runtime
 
 
 PlayerStructure:FromStructure{
